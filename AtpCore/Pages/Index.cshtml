@@ -7,17 +7,15 @@
 @section Scripts {
 
     <script type="text/javascript">
-import { Modal } from "bootstrap";
 
+        let checkboxValues = getCookieValue('favorite-players') != null || getCookieValue('favorite-players') != undefined ? JSON.parse(getCookieValue('favorite-players')) : {};
 
-        let checkboxValues = JSON.parse(getCookieValue('favorite-players')) || {};
-        
         //Add favorites to cookie
-        function TestMethod(sender, args) {
-            
+        function TestMethod() { 
+
             const $checkboxes = $('input[type="checkbox"]');
             const expireDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
-            
+
             $checkboxes.on("change", function () {
                 $checkboxes.each(function () {
                     checkboxValues[this.value] = this.checked;
@@ -25,6 +23,23 @@ import { Modal } from "bootstrap";
                 document.cookie = `favorite-players=${JSON.stringify(checkboxValues)}; expires=${expireDate}; path=/`;
             });
         }
+
+        @*function TestMethodTwo() {
+
+            const $checkboxes = $('input[type="checkbox"]');
+            const expireDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+
+            $checkboxes.on("change", function () {
+                $checkboxes.each(function () {
+                    checkboxValues[this.value] = this.checked;
+                });
+                document.cookie = `favorite-players=${JSON.stringify(checkboxValues)}; expires=${expireDate}; path=/`;
+
+                $.getJSON('@Url.Action("WriteCookie")', function (checkboxValues) {
+                    console.log("yodels")
+                });
+            });
+        }*@
 
         function getCookieValue(name) {
             let nameString = name + "=";
@@ -40,13 +55,45 @@ import { Modal } from "bootstrap";
             return false;
         }
 
+        //function createCookie() {
+        //    DotNet.invokeMethodAsync('AtpCore', 'WriteCookie');
+        //}
+
         //Check favorites on page load
-        $.each(checkboxValues, function (key, value) {
-            $('input[type="checkbox"][value="' + key + '"]').prop('checked', value);
-        });
+        
 
     </script>
 }
+
+
+@*@using System;
+@using Newtonsoft.Json;
+@using Microsoft.AspNetCore.Http;
+
+@functions {
+
+    private List<string> FavoritePlayers = new List<string>();
+
+    public IActionResult WriteCookie(string player)
+    {
+        //string player = e.ToString();
+        //if (FavoritePlayers is null)
+
+        if (!FavoritePlayers.Contains(player))
+        {
+            FavoritePlayers.Add(player);
+        }
+        else
+        {
+            FavoritePlayers.Remove(player);
+        }
+
+        CookieOptions options = new CookieOptions();
+        options.Expires = DateTime.Now.AddDays(365);
+        Response.Cookies.Append("favorite-players", JsonConvert.SerializeObject(FavoritePlayers), options);
+
+    }
+}*@
 
 <div class="row" id="content">
     <h1>@ViewData["players"]</h1>
@@ -76,7 +123,7 @@ import { Modal } from "bootstrap";
             </th>
         </tr>
 
-       @foreach (var item in Model.PlayerList)
+        @foreach (var item in Model.PlayerList)
         {
             <tr class="text-center">
                 <td class="player-rank">
@@ -100,7 +147,8 @@ import { Modal } from "bootstrap";
                 </td>
                 <td>
                     @*<input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
-                    <input type="checkbox" onclick="Modal.WriteCookies('favorite-player', this.value)" value="@item.FirstName@item.LastName" name="favorite" /><br />
+                    @*<input type="checkbox" onclick="@Model.WriteCookie(this.)" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
+                    <input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" />
                 </td>
             </tr>
         }

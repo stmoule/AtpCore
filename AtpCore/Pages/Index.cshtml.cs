@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -19,7 +21,7 @@ namespace AtpCore.Pages
 {
     public class IndexModel : PageModel
     {
-        public List<PlayerJson> PlayerList { get; set; }
+        public List<PlayerJson> PlayerList { get; set; } 
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -53,8 +55,6 @@ namespace AtpCore.Pages
         //public void FavoritePlayersCookie(string favoritePlayers)
         //{
 
-
-
         //    if (checkForExistingCookies("favorite-players"))
         //    {
         //        cookieFavoritePlayers.Expires = DateTime.Now.AddDays(-1);
@@ -69,11 +69,32 @@ namespace AtpCore.Pages
         //    Response.Cookies.Add(cookieFavoritePlayers);
         //}
 
-        public void WriteCookies(string setting, string settingValue)
-        {
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(365);
-            Response.Cookies.Append(setting, settingValue, options);
-        }
+        //private List<string> FavoritePlayers = new List<string>();
+
+        //[JSInvokable]
+        //public void WriteCookie(string player)
+        //{
+        //    //string player = e.ToString();
+        //    //if (FavoritePlayers is null)
+
+        //    if (!FavoritePlayers.Contains(player))
+        //    {
+        //        FavoritePlayers.Add(player);
+        //    }
+        //    else
+        //    {
+        //        FavoritePlayers.Remove(player);
+        //    }
+
+        //    CookieOptions options = new CookieOptions();
+        //    options.Expires = DateTime.Now.AddDays(365);
+        //    Response.Cookies.Append("favorite-players", JsonConvert.SerializeObject(FavoritePlayers), options);
+
+        //}
+
+        //protected void CallCSMethod()
+        //{
+        //    JSRuntime.Current.InvokeAsync<bool>("createCookie");
+        //}
     }
 }

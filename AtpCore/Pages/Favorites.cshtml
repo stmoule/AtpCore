@@ -26,9 +26,6 @@
             <th>
                 Country
             </th>
-            <th>
-                Add to Favorites
-            </th>
         </tr>
 
         @foreach (var item in Model.FavoritePlayerList)
@@ -52,9 +49,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CountryName)<br />
-                </td>
-                <td>
-                    <input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" /><br />
                 </td>
             </tr>
         }
