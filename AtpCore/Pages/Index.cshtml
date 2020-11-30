@@ -1,0 +1,111 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Top Ten";
+}
+
+@section Scripts {
+
+    <script type="text/javascript">
+import { Modal } from "bootstrap";
+
+
+        let checkboxValues = JSON.parse(getCookieValue('favorite-players')) || {};
+        
+        //Add favorites to cookie
+        function TestMethod(sender, args) {
+            
+            const $checkboxes = $('input[type="checkbox"]');
+            const expireDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+            
+            $checkboxes.on("change", function () {
+                $checkboxes.each(function () {
+                    checkboxValues[this.value] = this.checked;
+                });
+                document.cookie = `favorite-players=${JSON.stringify(checkboxValues)}; expires=${expireDate}; path=/`;
+            });
+        }
+
+        function getCookieValue(name) {
+            let nameString = name + "=";
+            const value = document.cookie.split(";").filter(item => {
+                return item.includes(nameString);
+            })
+
+            if (value != "") {
+                console.log(value[0].substring(nameString.length, value[0].length));
+                return value[0].substring(nameString.length, value[0].length);
+            }
+
+            return false;
+        }
+
+        //Check favorites on page load
+        $.each(checkboxValues, function (key, value) {
+            $('input[type="checkbox"][value="' + key + '"]').prop('checked', value);
+        });
+
+    </script>
+}
+
+<div class="row" id="content">
+    <h1>@ViewData["players"]</h1>
+
+    <table class="table table-striped border">
+        <tr class="table-secondary text-center">
+            <th>
+                @Html.DisplayNameFor(m => m.PlayerList[0].Rank)
+            </th>
+            <th>
+                Player
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.PlayerList[0].Points)
+            </th>
+            <th>
+                Previous Rank
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Add to Favorites
+            </th>
+        </tr>
+
+       @foreach (var item in Model.PlayerList)
+        {
+            <tr class="text-center">
+                <td class="player-rank">
+                    @Html.DisplayFor(modelItem => item.Rank)<br />
+                </td>
+                <td class="player-name">
+                    <img width="30%" src="https://www.atptour.com/@(item.PlayerHeadshotImageCmsUrl)" alt="@item.FirstName @item.LastName" /><br />
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Points)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrevRank)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgeAtRankDate)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountryName)<br />
+                </td>
+                <td>
+                    @*<input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
+                    <input type="checkbox" onclick="Modal.WriteCookies('favorite-player', this.value)" value="@item.FirstName@item.LastName" name="favorite" /><br />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+

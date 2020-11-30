@@ -1,0 +1,62 @@
+﻿@page
+@model AtpCore.Pages.FavoritesModel
+@{
+}
+
+<div class="row" id="content">
+    <h1>@ViewData["players"]</h1>
+
+    <table class="table table-striped border">
+        <tr class="table-secondary text-center">
+            <th>
+                @Html.DisplayNameFor(m => m.FavoritePlayerList[0].Rank)
+            </th>
+            <th>
+                Player
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.FavoritePlayerList[0].Points)
+            </th>
+            <th>
+                Previous Rank
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Add to Favorites
+            </th>
+        </tr>
+
+        @foreach (var item in Model.FavoritePlayerList)
+        {
+            <tr class="text-center">
+                <td class="player-rank">
+                    @Html.DisplayFor(modelItem => item.Rank)<br />
+                </td>
+                <td>
+                    <img width="30%" src="https://www.atptour.com/@(item.PlayerHeadshotImageCmsUrl)" alt="@item.FirstName @item.LastName" /><br />
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Points)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrevRank)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgeAtRankDate)<br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CountryName)<br />
+                </td>
+                <td>
+                    <input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" /><br />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
