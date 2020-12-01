@@ -4,7 +4,7 @@
     ViewData["Title"] = "Top Ten";
 }
 
-@using AtpCore.Components
+@using AtpCore.Pages.Components
 @*@inject Services.PlayerInfo PlayerBiosData*@
 
 @section Scripts {
@@ -182,7 +182,7 @@
             <tr>
                 <td id="@($"{item.PlayerId}Row")" class="additional-row-td" colspan="7">
                     @*@(await Html.RenderComponentAsync<SectionComponent>(RenderMode.ServerPrerendered, new { SectionName = "body" }))*@
-                    <div id="@($"{item.PlayerId}Accordian")" class="collapse">
+                    <div id="@($"{item.PlayerId}Accordian")" class="collapse row">
                         @*<component type="typeof(MyProject.Views.Home.Test)"
         render-mode="ServerPrerendered"
         param-Name="@Model.TestName" />*@
@@ -194,7 +194,9 @@
                         @*@(await Html.RenderComponentAsync<PlayerBio>(new {string PlayerId = @item.PlayerId }))*@
                         @*@(await Html.RenderComponentAsync<PlayerBio>(RenderMode.ServerPrerendered, new { PlayerId = @item.PlayerId }))*@
 
-                        @await Component.InvokeAsync("Player", new { PlayerId = @item.PlayerId })
+                        @await Component.InvokeAsync("PlayerExpanded", new { PlayerId = @item.PlayerId })
+
+                        @*<PlayerBio />*@
 
                     </div>
                 </td>

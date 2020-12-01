@@ -50,7 +50,9 @@ C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\bin\Debug\net5.0\RestSharp.dll
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\PlayerInfo.cshtml.g.cs
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\AtpCore.RazorComponent.input.cache
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\RazorDeclaration\Components\PlayerBio.razor.g.cs
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\AtpCore.RazorComponent.output.cache
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\RazorDeclaration\AtpCore.dll
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Components\PlayerBio.razor.g.cs
+C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\RazorDeclaration\Pages\Components\PlayerBio.razor.g.cs
+C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Components\PlayerBio.razor.g.cs
+C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Components\PlayerExpanded\PlayerBios.cshtml.g.cs
+C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Components\PlayerExpanded\_PlayerTest.cshtml.g.cs

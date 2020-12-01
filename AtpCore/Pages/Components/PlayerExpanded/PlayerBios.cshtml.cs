@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AtpCore.Components.PlayerInfo
+namespace AtpCore.Pages.Components.PlayerExpanded
 {
     public class PlayerBiosModel : PageModel
     {
+
+        public PlayerBiosData PlayerData { get; set; }
+
         public void OnGet()
         {
         }

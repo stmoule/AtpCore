@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AtpCore
 {
-    public class PlayerViewComponent : ViewComponent
+    public class PlayerExpandedViewComponent : ViewComponent
     {
-        public PlayerBiosData PlayerBios { get; set; }
+        public PlayerBiography PlayerBiosFull { get; set; }
 
         public string PlayerId { get; set; }
 
@@ -24,7 +29,7 @@ namespace AtpCore
             {
                 var profile = response.Content.ReadFromJsonAsync<PlayerBiography>();
 
-                PlayerBios = profile.Result.Data;
+                PlayerBiosFull = profile.Result;
 
                 //PlayerData tester = profiles.Result.Data.(p => p.PlayerId == PlayerId));
 
@@ -39,11 +44,18 @@ namespace AtpCore
                 //}
             }
 
-            //return View<PlayerBiosData>(PlayerBios);
-            //return View<PlayerBiosData>("PlayerInfo", PlayerBios);
+        //return View<PlayerBiosData>(PlayerBios);
+        //return View<PlayerBiosData>("PlayerInfo", PlayerBios);
 
-            //return View<PlayerBiosData>("_PlayerTest", PlayerBios);
-            return View("_PlayerTest", PlayerBios);
+        return View<PlayerBiography>("_PlayerTest", PlayerBiosFull);
+
+        //InvalidOperationException: The view 'Components/Player/_PlayerTest' was not found. The following locations were searched:
+
+        //InvalidOperationException: The view 'Components/PlayerExpanded/_PlayerTest' was not found.The following locations were searched:
+        /// Pages / Components / PlayerExpanded / _PlayerTest.cshtml
+        /// Pages / Shared / Components / PlayerExpanded / _PlayerTest.cshtml
+        /// Views / Shared / Components / PlayerExpanded / _PlayerTest.cshtml
+        //return View<PlayerBiosData>("PlayerBios", PlayerBios);
 
         }
     }

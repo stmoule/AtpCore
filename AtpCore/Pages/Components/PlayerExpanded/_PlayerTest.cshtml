@@ -1,0 +1,24 @@
+﻿@model PlayerBiography
+@{
+}
+
+@using System.Net
+
+@*Wait until click to generate the player info*@
+@*https://swimburger.net/blog/dotnet/how-to-run-code-after-blazor-component-has-rendered*@
+
+<div class="col-auto">
+    <div class="float-right m-3">
+        <img width="70%" src="https://www.atptour.com/@(Model.Content.PlayerProfileDetails.PlayerGladiatorUrl)" alt="@Model.Data.FirstName @Model.Data.LastName" />
+    </div>
+    <div class="m-3">
+        <h4>About @Model.Data.FirstName @Model.Data.LastName</h4>
+        @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioPersonal))
+    </div>
+    <div class="m-3">
+        <h4>Career Highlights</h4>
+        @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioCareerHighlights))
+    </div>
+</div>
+
+
