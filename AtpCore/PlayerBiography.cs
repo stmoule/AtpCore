@@ -8,7 +8,7 @@ namespace AtpCore
     public partial class PlayerBiography
     {
         public ContentBio Content { get; set; }
-        public PlayerData Data { get; set; }
+        public PlayerBiosData Data { get; set; }
     }
 
     public partial class ContentBio
@@ -36,10 +36,5 @@ namespace AtpCore
         public string BioYearToDate { get; set; }
         public string BioCareerHighlights { get; set; }
         public string Type { get; set; }
-    }
-
-    public class AppData
-    {
-        public int Age { get; set; }
     }
 }

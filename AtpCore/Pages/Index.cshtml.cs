@@ -22,7 +22,8 @@ namespace AtpCore
     public class IndexModel : PageModel
     {
         public List<PlayerJson> PlayerList { get; set; }
-        public PlayerBiography PlayerInfo { get; set; }
+
+        //public PlayerBiography PlayerInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {

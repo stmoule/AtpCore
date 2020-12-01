@@ -32,6 +32,7 @@ namespace AtpCore
 
             //for components
             services.AddServerSideBlazor();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

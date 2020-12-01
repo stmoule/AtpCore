@@ -1,8 +1,8 @@
-﻿@inject Services.PlayerInfo Data
+﻿@*@inject Services.PlayerInfo Data*@
 
-<div id="player-bio">
-    <h1>Yodels</h1>
-</div>
+    
+<h1>Yodels @PlayerId</h1>
+<h3>@PlayerBios.FirstName</h3>
 
 
 @using System;
@@ -14,36 +14,42 @@
 
 @code {
 
-    //public PlayerData PlayerBios { get; set; }
-    //public string PlayerId { get; set; }
+    [Parameter]
+    public PlayerBiosData PlayerBios { get; set; }
 
-    //private async Task<PlayerData> PlayerContent(string PlayerId)
-    //{
-    //    var httpClient = new HttpClient();
-    //    httpClient.BaseAddress = new Uri("https://app.atptour.com/");
+    [Parameter]
+    public string PlayerId { get; set; }
 
-    //    // Get data from JSON HttpContent with ReadFromJsonAsync
-    //    var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=D643");
-    //    using var response = await httpClient.SendAsync(request);
+    private async void IvokeAsync(string PlayerId)
+    {
+        var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("https://app.atptour.com/");
 
-    //    if (response.IsSuccessStatusCode)
-    //    {
-    //        var profiles = response.Content.ReadFromJsonAsync<PlayerBiography>();
+        // Get data from JSON HttpContent with ReadFromJsonAsync
+        var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=" + PlayerId);
+        using var response = await httpClient.SendAsync(request);
 
-    //        //PlayerData tester = profiles.Result.Data.(p => p.PlayerId == PlayerId));
+        if (response.IsSuccessStatusCode)
+        {
+            var profile = response.Content.ReadFromJsonAsync<PlayerBiography>();
 
-    //        PlayerData testerTwo = profiles.Result.Data.W
+            PlayerBios = profile.Result.Data;
 
-    //        foreach (PlayerBiosData player in profiles.Result.Data)
-    //        {
+            //PlayerData tester = profiles.Result.Data.(p => p.PlayerId == PlayerId));
+
+            //PlayerData testerTwo = profiles.Result.Data.W
+
+
+            //foreach (PlayerBiosData player in profiles.Result.Data)
+            //{
 
 
 
-    //        }
-    //    }
+            //}
+        }
 
-    //    return PlayerBios;
+        //return Page();
 
-}
+    }
 
 }

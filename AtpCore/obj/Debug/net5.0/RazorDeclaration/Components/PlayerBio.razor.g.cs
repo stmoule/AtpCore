@@ -4,55 +4,54 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace AtpCore.PlayerBio
+namespace AtpCore.Components
 {
     #line hidden
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 9 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
+#line 8 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
 using System;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
+#line 9 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 11 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
+#line 10 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
 using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 12 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
+#line 11 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
 using Microsoft.AspNetCore.Mvc;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 13 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
+#line 12 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
 using System.Collections.Generic;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 14 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
+#line 13 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
 using System.Net.Http.Json;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/PlayerBio")]
     public partial class PlayerBio : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -61,38 +60,44 @@ using System.Net.Http.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 16 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
+#line 15 "C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\Components\PlayerBio.razor"
        
 
-    public List<PlayerData> PlayerBios { get; set; }
+    [Parameter]
+    public PlayerBiosData PlayerBios { get; set; }
+
+    [Parameter]
     public string PlayerId { get; set; }
 
-    private async void PlayerContent(string PlayerId)
+    private async void IvokeAsync(string PlayerId)
     {
         var httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri("https://app.atptour.com/");
 
         // Get data from JSON HttpContent with ReadFromJsonAsync
-        var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=D643");
+        var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=" + PlayerId);
         using var response = await httpClient.SendAsync(request);
-
-        List<PlayerData> playerContent = new List<PlayerData>();
 
         if (response.IsSuccessStatusCode)
         {
-            var profiles = response.Content.ReadFromJsonAsync<PlayerBiography>();
+            var profile = response.Content.ReadFromJsonAsync<PlayerBiography>();
 
-            //foreach (PlayerData player in profiles.Result.Data)
+            PlayerBios = profile.Result.Data;
+
+            //PlayerData tester = profiles.Result.Data.(p => p.PlayerId == PlayerId));
+
+            //PlayerData testerTwo = profiles.Result.Data.W
+
+
+            //foreach (PlayerBiosData player in profiles.Result.Data)
             //{
-            //    if (player.PlayerId == PlayerId)
-            //    {
-            //        playerContent.Add(player);
-            //    }
+
+
 
             //}
         }
 
-        PlayerBios = playerContent;
+        //return Page();
 
     }
 

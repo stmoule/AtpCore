@@ -1,10 +1,11 @@
-﻿@page
+﻿@page "/"
 @model IndexModel
 @{
     ViewData["Title"] = "Top Ten";
 }
 
-@using AtpCore
+@using AtpCore.Components
+@*@inject Services.PlayerInfo PlayerBiosData*@
 
 @section Scripts {
 
@@ -86,7 +87,7 @@
 
     //}
 
-    public List<PlayerBiography> PlayerBio { get; set; }
+    public List<PlayerBiography> PlayerBiography { get; set; }
     public string PlayerId { get; set; }
 
     private async Task<IActionResult> PlayerContent(string PlayerId)
@@ -110,7 +111,7 @@
             //}
         }
 
-        PlayerBio = playerContent;
+        PlayerBiography = playerContent;
 
         return Page();
     }
@@ -179,15 +180,21 @@
                     </td>*@
             </tr>
             <tr>
-                <td id="@($"{item.PlayerId}Row")" class="additional-row-td">
+                <td id="@($"{item.PlayerId}Row")" class="additional-row-td" colspan="7">
                     @*@(await Html.RenderComponentAsync<SectionComponent>(RenderMode.ServerPrerendered, new { SectionName = "body" }))*@
                     <div id="@($"{item.PlayerId}Accordian")" class="collapse">
                         @*<component type="typeof(MyProject.Views.Home.Test)"
-                            render-mode="ServerPrerendered"
-                            param-Name="@Model.TestName" />*@
+        render-mode="ServerPrerendered"
+        param-Name="@Model.TestName" />*@
                         @*@PlayerContent*@
 
-                        <PlayerBio PlayerId="@item.PlayerId" />
+                        @*<PlayerBio PlayerId="@item.PlayerId" />
+        <PlayerInfo />*@
+                        @*@(await Html.RenderComponentAsync<Pl>(RenderMode.ServerPrerendered))*@
+                        @*@(await Html.RenderComponentAsync<PlayerBio>(new {string PlayerId = @item.PlayerId }))*@
+                        @*@(await Html.RenderComponentAsync<PlayerBio>(RenderMode.ServerPrerendered, new { PlayerId = @item.PlayerId }))*@
+
+                        @await Component.InvokeAsync("Player", new { PlayerId = @item.PlayerId })
 
                     </div>
                 </td>

@@ -1,16 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using Microsoft.AspNetCore.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AtpCore.Pages
+namespace AtpCore
 {
-    public class PlayerInfoViewComponent : ViewComponent
+    public class PlayerViewComponent : ViewComponent
     {
         public PlayerBiosData PlayerBios { get; set; }
 
@@ -47,7 +42,8 @@ namespace AtpCore.Pages
             //return View<PlayerBiosData>(PlayerBios);
             //return View<PlayerBiosData>("PlayerInfo", PlayerBios);
 
-            return View<PlayerBiosData>("PlayerBios", PlayerBios);
+            //return View<PlayerBiosData>("_PlayerTest", PlayerBios);
+            return View("_PlayerTest", PlayerBios);
 
         }
     }
