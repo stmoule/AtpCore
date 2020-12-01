@@ -25,7 +25,10 @@ namespace AtpCore
         {
             services.AddRazorPages();
 
-            services.AddSingleton<AppData>();
+            services.AddSingleton<Services.PlayerInfo>();
+
+            //For server side blazor
+            services.AddScoped<Services.PlayerInfo>();
 
             //for components
             services.AddServerSideBlazor();
