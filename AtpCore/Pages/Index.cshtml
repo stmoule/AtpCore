@@ -4,14 +4,16 @@
     ViewData["Title"] = "Top Ten";
 }
 
+@using AtpCore
+
 @section Scripts {
 
     <script type="text/javascript">
 
-        let checkboxValues = getCookieValue('favorite-players') != null || getCookieValue('favorite-players') != undefined ? JSON.parse(getCookieValue('favorite-players')) : {};
+        let checkboxValues = JSON.parse(getCookieValue('favorite-players')) || {};
 
         //Add favorites to cookie
-        function TestMethod() { 
+        function TestMethod(sender, args) {
 
             const $checkboxes = $('input[type="checkbox"]');
             const expireDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
@@ -23,77 +25,98 @@
                 document.cookie = `favorite-players=${JSON.stringify(checkboxValues)}; expires=${expireDate}; path=/`;
             });
         }
-
-        @*function TestMethodTwo() {
-
-            const $checkboxes = $('input[type="checkbox"]');
-            const expireDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
-
-            $checkboxes.on("change", function () {
-                $checkboxes.each(function () {
-                    checkboxValues[this.value] = this.checked;
-                });
-                document.cookie = `favorite-players=${JSON.stringify(checkboxValues)}; expires=${expireDate}; path=/`;
-
-                $.getJSON('@Url.Action("WriteCookie")', function (checkboxValues) {
-                    console.log("yodels")
-                });
-            });
-        }*@
 
         function getCookieValue(name) {
             let nameString = name + "=";
             const value = document.cookie.split(";").filter(item => {
                 return item.includes(nameString);
             })
-
             if (value != "") {
                 console.log(value[0].substring(nameString.length, value[0].length));
                 return value[0].substring(nameString.length, value[0].length);
             }
-
             return false;
         }
 
-        //function createCookie() {
-        //    DotNet.invokeMethodAsync('AtpCore', 'WriteCookie');
-        //}
-
         //Check favorites on page load
-        
+        $.each(checkboxValues, function (key, value) {
+            $('input[type="checkbox"][value="' + key + '"]').prop('checked', value);
+        });
+
+        function togglePlayerInfo(element) {
+            $(element).toggleClass("additional-row-td");
+        }
+
 
     </script>
 }
 
 
-@*@using System;
+@using System;
 @using Newtonsoft.Json;
+@using System.Net.Http;
 @using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Mvc.RazorPages;
+@using System.Collections.Generic;
+@using System.Net.Http.Json;
+
 
 @functions {
 
-    private List<string> FavoritePlayers = new List<string>();
+    //private List<string> FavoritePlayers = new List<string>();
 
-    public IActionResult WriteCookie(string player)
+    //public IActionResult WriteCookie(string player)
+    //{
+    //    //string player = e.ToString();
+    //    //if (FavoritePlayers is null)
+
+    //    if (!FavoritePlayers.Contains(player))
+    //    {
+    //        FavoritePlayers.Add(player);
+    //    }
+    //    else
+    //    {
+    //        FavoritePlayers.Remove(player);
+    //    }
+
+    //    CookieOptions options = new CookieOptions();
+    //    options.Expires = DateTime.Now.AddDays(365);
+    //    Response.Cookies.Append("favorite-players", JsonConvert.SerializeObject(FavoritePlayers), options);
+
+    //}
+
+    public List<PlayerBiography> PlayerBio { get; set; }
+    public string PlayerId { get; set; }
+
+    private async Task<IActionResult> PlayerContent(string PlayerId)
     {
-        //string player = e.ToString();
-        //if (FavoritePlayers is null)
+        var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri("https://app.atptour.com/");
 
-        if (!FavoritePlayers.Contains(player))
+        // Get data from JSON HttpContent with ReadFromJsonAsync
+        var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=D643");
+        using var response = await httpClient.SendAsync(request);
+
+        List<PlayerBiography> playerContent = new List<PlayerBiography>();
+
+        if (response.IsSuccessStatusCode)
         {
-            FavoritePlayers.Add(player);
-        }
-        else
-        {
-            FavoritePlayers.Remove(player);
+            var profiles = response.Content.ReadFromJsonAsync<PlayerBiography>();
+
+            //foreach (PlayerBiography player in (profiles.).Where(p => p.PlayerId == PlayerId))
+            //{
+            //    playerContent.Add(player);
+            //}
         }
 
-        CookieOptions options = new CookieOptions();
-        options.Expires = DateTime.Now.AddDays(365);
-        Response.Cookies.Append("favorite-players", JsonConvert.SerializeObject(FavoritePlayers), options);
+        PlayerBio = playerContent;
 
+        return Page();
     }
-}*@
+}
+
+
 
 <div class="row" id="content">
     <h1>@ViewData["players"]</h1>
@@ -128,6 +151,7 @@
             <tr class="text-center">
                 <td class="player-rank">
                     @Html.DisplayFor(modelItem => item.Rank)<br />
+                    <a class="player-bio" style="font-size: 0.35em" role="button" data-toggle="collapse" href="#@($"{item.PlayerId}Accordian")" onclick="togglePlayerInfo('@($"#{item.PlayerId}Row")')" aria-controls="@($"{item.PlayerId}Accordian")" aria-expanded="false">Info</a>
                 </td>
                 <td class="player-name">
                     <img width="30%" src="https://www.atptour.com/@(item.PlayerHeadshotImageCmsUrl)" alt="@item.FirstName @item.LastName" /><br />
@@ -149,6 +173,23 @@
                     @*<input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
                     @*<input type="checkbox" onclick="@Model.WriteCookie(this.)" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
                     <input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" />
+                </td>
+                @*<td>
+                        <input type="hidden" name="PlayerId" id="PlayerId@item.FirstName@item.LastName" value="@Html.DisplayFor(modelItem => item.PlayerId)" /><br />
+                    </td>*@
+            </tr>
+            <tr>
+                <td id="@($"{item.PlayerId}Row")" class="additional-row-td">
+                    @*@(await Html.RenderComponentAsync<SectionComponent>(RenderMode.ServerPrerendered, new { SectionName = "body" }))*@
+                    <div id="@($"{item.PlayerId}Accordian")" class="collapse">
+                        @*<component type="typeof(MyProject.Views.Home.Test)"
+                            render-mode="ServerPrerendered"
+                            param-Name="@Model.TestName" />*@
+                        @*@PlayerContent*@
+
+                        <PlayerBio PlayerId="@item.PlayerId" />
+
+                    </div>
                 </td>
             </tr>
         }

@@ -77,3 +77,11 @@ body {
 .player-name {
     font-weight: bold;
 }
+
+.clickable {
+    cursor: pointer;
+}
+
+.additional-row-td {
+    display: none;
+}

@@ -17,11 +17,12 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using HtmlHelper = System.Web.Mvc.HtmlHelper;
 
-namespace AtpCore.Pages
+namespace AtpCore
 {
     public class IndexModel : PageModel
     {
-        public List<PlayerJson> PlayerList { get; set; } 
+        public List<PlayerJson> PlayerList { get; set; }
+        public PlayerBiography PlayerInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {

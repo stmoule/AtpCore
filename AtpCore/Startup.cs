@@ -24,6 +24,11 @@ namespace AtpCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddSingleton<AppData>();
+
+            //for components
+            services.AddServerSideBlazor();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,6 +53,9 @@ namespace AtpCore
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+
+                //more for components
+                endpoints.MapBlazorHub();
             });
         }
     }
