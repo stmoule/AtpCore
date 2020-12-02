@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AtpCore.Services
 {
-    public class PlayerInfo
+    public class Delete
     {
         public ContentBio Content { get; set; }
         public PlayerBiosData Data { get; set; }
