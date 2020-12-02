@@ -19,8 +19,7 @@
 
         //Makes a favorites cookie
         function TestMethod(sender, args) {
-
-            const $checkboxes = $('input[type="checkbox"]');
+            const $checkboxes = $('input.favorite-player[type="checkbox"]');
             const expireDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
 
             $checkboxes.on("change", function () {
@@ -45,15 +44,23 @@
 
         //Check favorites on page load
         $.each(checkboxValues, function (key, value) {
-            $('input[type="checkbox"][value="' + key + '"]').prop('checked', value);
+            $('input.favorite-player[type="checkbox"][value="' + key + '"]').prop('checked', value);
         });
 
         function togglePlayerInfo(element) {
             $(element).toggleClass("additional-row-td");
         }
 
-        function JqueryAjaxCall() {
-            var pageUrl = Resol
+        function favoritesToggle() {
+            if ($('input.switch-input[type="checkbox"]').is(':checked')) {
+                $.each(checkboxValues, function (key, value) {
+                    if (!value) {
+                        $('tr.' + key).addClass("hidden");
+                    }
+                });
+            } else {
+                $('tr.hidden').removeClass("hidden");
+            }
         }
 
     </script>
@@ -117,11 +124,18 @@
 
 
 <div class="row" id="content">
-    <h1>@ViewData["title"]</h1>
-
-    <button type="button" class="btn btn-primary" onclick="@Model.WriteCookie()">
-        Test
-    </button>
+    <div class="col-xs-6">
+        <h1>@ViewData["title"]</h1>
+    </div>
+    <div class="col-xs-6">
+        <div class="float-right title-margin">
+            Only Show Favorite Players
+            <div class="switch">
+                <input id="switch-1" type="checkbox" class="switch-input" onclick="favoritesToggle()" />
+                <label for="switch-1" class="switch-label">Search</label>
+            </div>
+        </div>
+    </div>
 
     <table class="table table-striped border">
         <tr class="table-secondary">
@@ -150,7 +164,7 @@
 
         @foreach (var item in Model.PlayerList)
         {
-            <tr class="text-center">
+            <tr class="text-center @item.FirstName@item.LastName">
                 <td class="player-rank">
                     @Html.DisplayFor(modelItem => item.Rank)<br />
                     <a class="player-bio" style="font-size: 0.35em" role="button" data-toggle="collapse" href="#@($"{item.PlayerId}Accordian")" onclick="togglePlayerInfo('@($"#{item.PlayerId}Row")')" aria-controls="@($"{item.PlayerId}Accordian")" aria-expanded="false">Info</a>
@@ -174,10 +188,10 @@
                 <td>
                     @*<input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
                     @*<input type="checkbox" onclick="@Model.WriteCookie(this.)" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
-                    <input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" />
+                    <input type="checkbox" class="favorite-player" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" />
                 </td>
             </tr>
-            <tr>
+            <tr class="@item.FirstName@item.LastName">
                 <td id="@($"{item.PlayerId}Row")" colspan="7">
                     <div id="@($"{item.PlayerId}Accordian")" class="collapse">
                         @await Component.InvokeAsync("PlayerExpanded", new { PlayerId = @item.PlayerId })
