@@ -28,7 +28,7 @@ namespace AtpCore
         public async Task<IActionResult> OnGetAsync()
         {
 
-            ViewData["players"] = "ATP Tour Top 10";
+            ViewData["title"] = "ATP Tour Top 10";
 
             var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("https://app.atptour.com/");
@@ -52,6 +52,13 @@ namespace AtpCore
             PlayerList = playerList;
 
             return Page();
+        }
+
+        public void OnPost()
+        {
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(365);
+            Response.Cookies.Append("favorite-players-post", "post-test", options);
         }
 
         //public void FavoritePlayersCookie(string favoritePlayers)
@@ -98,5 +105,34 @@ namespace AtpCore
         //{
         //    JSRuntime.Current.InvokeAsync<bool>("createCookie");
         //}
+
+        public object WriteCookie()
+        {
+            //string player = e.ToString();
+            //if (FavoritePlayers is null)
+
+            //if (!FavoritePlayers.Contains(player))
+            //{
+            //    FavoritePlayers.Add(player);
+            //}
+            //else
+            //{
+            //    FavoritePlayers.Remove(player);
+            //}
+
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(365);
+            Response.Cookies.Append("favorite-players", "please-work", options);
+
+            PlayerJson tester = new PlayerJson
+            {
+                FirstName = "Craig",
+                LastName = "Playstead"
+            };
+
+            return tester;
+        }
     }
+
+    
 }

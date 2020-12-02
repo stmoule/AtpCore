@@ -2,23 +2,70 @@
 @{
 }
 
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $('#playerTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
+
+    </script>
+}
+
 @using System.Net
 
 @*Wait until click to generate the player info*@
 @*https://swimburger.net/blog/dotnet/how-to-run-code-after-blazor-component-has-rendered*@
 
-<div class="col-auto">
-    <div class="float-right m-3">
-        <img width="70%" src="https://www.atptour.com/@(Model.Content.PlayerProfileDetails.PlayerGladiatorUrl)" alt="@Model.Data.FirstName @Model.Data.LastName" />
+
+<!-- Nav tabs -->
+<div class="panel with-nav-tabs panel-default">
+    <div class="panel-heading">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#@($"about{Model.Data.PlayerId}")" aria-controls="@($"about{Model.Data.PlayerId}")" role="tab" data-toggle="tab">About @Model.Data.FirstName</a></li>
+            <li role="presentation"><a href="#@($"year{Model.Data.PlayerId}")" aria-controls="@($"year{Model.Data.PlayerId}")" role="tab" data-toggle="tab">Year to Date</a></li>
+            <li role="presentation"><a href="#@($"career{Model.Data.PlayerId}")" aria-controls="@($"career{Model.Data.PlayerId}")" role="tab" data-toggle="tab">Career Highlights</a></li>
+        </ul>
     </div>
-    <div class="m-3">
-        <h4>About @Model.Data.FirstName @Model.Data.LastName</h4>
-        @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioPersonal))
-    </div>
-    <div class="m-3">
-        <h4>Career Highlights</h4>
-        @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioCareerHighlights))
+    <!-- Tab panes -->
+    <div class="panel-body">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="@($"about{Model.Data.PlayerId}")">
+                <div class="float-right m-3">
+                    <img width="70%" src="https://www.atptour.com/@(Model.Content.PlayerProfileDetails.PlayerGladiatorUrl)" alt="@Model.Data.FirstName @Model.Data.LastName" />
+                </div>
+                <div class="m-3">
+                    @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioPersonal))
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="@($"year{Model.Data.PlayerId}")">
+                <div class="m-3">
+                    @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioYearToDate))
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="@($"career{Model.Data.PlayerId}")">
+                <div class="m-3">
+                    @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioCareerHighlights))
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+        @*<div class="col-auto">
+                <div class="float-right m-3">
+                    <img width="70%" src="https://www.atptour.com/@(Model.Content.PlayerProfileDetails.PlayerGladiatorUrl)" alt="@Model.Data.FirstName @Model.Data.LastName" />
+                </div>
+                <div class="m-3">
+                    <h4>About @Model.Data. @Model.Data.LastName</h4>
+                    @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioPersonal))
+                </div>
+                <div class="m-3">
+                    <h4>Career Highlights</h4>
+                    @Html.Raw(@WebUtility.HtmlDecode(Model.Data.BioCareerHighlights))
+                </div>
+            </div>*@
 
 

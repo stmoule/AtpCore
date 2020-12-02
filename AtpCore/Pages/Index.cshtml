@@ -4,8 +4,12 @@
     ViewData["Title"] = "Top Ten";
 }
 
-@using AtpCore.Pages.Components
-@*@inject Services.PlayerInfo PlayerBiosData*@
+@using System;
+@using Newtonsoft.Json;
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc;
+@using System.Collections.Generic;
+@using System.Net.Http.Json;
 
 @section Scripts {
 
@@ -13,7 +17,7 @@
 
         let checkboxValues = JSON.parse(getCookieValue('favorite-players')) || {};
 
-        //Add favorites to cookie
+        //Makes a favorites cookie
         function TestMethod(sender, args) {
 
             const $checkboxes = $('input[type="checkbox"]');
@@ -48,38 +52,31 @@
             $(element).toggleClass("additional-row-td");
         }
 
+        function JqueryAjaxCall() {
+            var pageUrl = Resol
+        }
 
     </script>
 }
 
 
-@using System;
-@using Newtonsoft.Json;
-@using System.Net.Http;
-@using Microsoft.AspNetCore.Http;
-@using Microsoft.AspNetCore.Mvc;
-@using Microsoft.AspNetCore.Mvc.RazorPages;
-@using System.Collections.Generic;
-@using System.Net.Http.Json;
-
-
 @functions {
 
-    //private List<string> FavoritePlayers = new List<string>();
+    private List<string> FavoritePlayers = new List<string>();
 
-    //public IActionResult WriteCookie(string player)
+    //public void WriteCookie(UIMouseEventArgs e)
     //{
     //    //string player = e.ToString();
     //    //if (FavoritePlayers is null)
 
-    //    if (!FavoritePlayers.Contains(player))
-    //    {
-    //        FavoritePlayers.Add(player);
-    //    }
-    //    else
-    //    {
-    //        FavoritePlayers.Remove(player);
-    //    }
+    //    //if (!FavoritePlayers.Contains(player))
+    //    //{
+    //    //    FavoritePlayers.Add(player);
+    //    //}
+    //    //else
+    //    //{
+    //    //    FavoritePlayers.Remove(player);
+    //    //}
 
     //    CookieOptions options = new CookieOptions();
     //    options.Expires = DateTime.Now.AddDays(365);
@@ -87,62 +84,66 @@
 
     //}
 
-    public List<PlayerBiography> PlayerBiography { get; set; }
-    public string PlayerId { get; set; }
+    //public List<PlayerBiography> PlayerBiography { get; set; }
+    //public string PlayerId { get; set; }
 
-    private async Task<IActionResult> PlayerContent(string PlayerId)
-    {
-        var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri("https://app.atptour.com/");
+    //private async Task<IActionResult> PlayerContent(string PlayerId)
+    //{
+    //    var httpClient = new HttpClient();
+    //    httpClient.BaseAddress = new Uri("https://app.atptour.com/");
 
-        // Get data from JSON HttpContent with ReadFromJsonAsync
-        var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=D643");
-        using var response = await httpClient.SendAsync(request);
+    //    // Get data from JSON HttpContent with ReadFromJsonAsync
+    //    var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=D643");
+    //    using var response = await httpClient.SendAsync(request);
 
-        List<PlayerBiography> playerContent = new List<PlayerBiography>();
+    //    List<PlayerBiography> playerContent = new List<PlayerBiography>();
 
-        if (response.IsSuccessStatusCode)
-        {
-            var profiles = response.Content.ReadFromJsonAsync<PlayerBiography>();
+    //    if (response.IsSuccessStatusCode)
+    //    {
+    //        var profiles = response.Content.ReadFromJsonAsync<PlayerBiography>();
 
-            //foreach (PlayerBiography player in (profiles.).Where(p => p.PlayerId == PlayerId))
-            //{
-            //    playerContent.Add(player);
-            //}
-        }
+    //        //foreach (PlayerBiography player in (profiles.).Where(p => p.PlayerId == PlayerId))
+    //        //{
+    //        //    playerContent.Add(player);
+    //        //}
+    //    }
 
-        PlayerBiography = playerContent;
+    //    PlayerBiography = playerContent;
 
-        return Page();
-    }
+    //    return Page();
+    //}
 }
 
 
 
 <div class="row" id="content">
-    <h1>@ViewData["players"]</h1>
+    <h1>@ViewData["title"]</h1>
+
+    <button type="button" class="btn btn-primary" onclick="@Model.WriteCookie()">
+        Test
+    </button>
 
     <table class="table table-striped border">
-        <tr class="table-secondary text-center">
-            <th>
+        <tr class="table-secondary">
+            <th class="text-center">
                 @Html.DisplayNameFor(m => m.PlayerList[0].Rank)
             </th>
-            <th>
+            <th class="text-center">
                 Player
             </th>
-            <th>
+            <th class="text-center">
                 @Html.DisplayNameFor(m => m.PlayerList[0].Points)
             </th>
-            <th>
+            <th class="text-center">
                 Previous Rank
             </th>
-            <th>
+            <th class="text-center">
                 Age
             </th>
-            <th>
+            <th class="text-center">
                 Country
             </th>
-            <th>
+            <th class="text-center">
                 Add to Favorites
             </th>
         </tr>
@@ -175,29 +176,11 @@
                     @*<input type="checkbox" onclick="@Model.WriteCookie(this.)" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
                     <input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" />
                 </td>
-                @*<td>
-                        <input type="hidden" name="PlayerId" id="PlayerId@item.FirstName@item.LastName" value="@Html.DisplayFor(modelItem => item.PlayerId)" /><br />
-                    </td>*@
             </tr>
             <tr>
-                <td id="@($"{item.PlayerId}Row")" class="additional-row-td" colspan="7">
-                    @*@(await Html.RenderComponentAsync<SectionComponent>(RenderMode.ServerPrerendered, new { SectionName = "body" }))*@
-                    <div id="@($"{item.PlayerId}Accordian")" class="collapse row">
-                        @*<component type="typeof(MyProject.Views.Home.Test)"
-        render-mode="ServerPrerendered"
-        param-Name="@Model.TestName" />*@
-                        @*@PlayerContent*@
-
-                        @*<PlayerBio PlayerId="@item.PlayerId" />
-        <PlayerInfo />*@
-                        @*@(await Html.RenderComponentAsync<Pl>(RenderMode.ServerPrerendered))*@
-                        @*@(await Html.RenderComponentAsync<PlayerBio>(new {string PlayerId = @item.PlayerId }))*@
-                        @*@(await Html.RenderComponentAsync<PlayerBio>(RenderMode.ServerPrerendered, new { PlayerId = @item.PlayerId }))*@
-
+                <td id="@($"{item.PlayerId}Row")" colspan="7">
+                    <div id="@($"{item.PlayerId}Accordian")" class="collapse">
                         @await Component.InvokeAsync("PlayerExpanded", new { PlayerId = @item.PlayerId })
-
-                        @*<PlayerBio />*@
-
                     </div>
                 </td>
             </tr>

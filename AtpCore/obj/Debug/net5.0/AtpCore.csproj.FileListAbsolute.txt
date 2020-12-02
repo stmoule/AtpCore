@@ -25,7 +25,6 @@ C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\AtpCor
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\AtpCore.RazorCoreGenerate.cache
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Error.cshtml.g.cs
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Privacy.cshtml.g.cs
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Shared\_Layout.cshtml.g.cs
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
@@ -48,11 +47,4 @@ C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\bin\Debug\net5.0\System
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Favorites.cshtml.g.cs
 C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\bin\Debug\net5.0\RestSharp.dll
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\PlayerInfo.cshtml.g.cs
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\AtpCore.RazorComponent.input.cache
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\AtpCore.RazorComponent.output.cache
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\RazorDeclaration\AtpCore.dll
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\RazorDeclaration\Pages\Components\PlayerBio.razor.g.cs
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Components\PlayerBio.razor.g.cs
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Components\PlayerExpanded\PlayerBios.cshtml.g.cs
-C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Components\PlayerExpanded\_PlayerTest.cshtml.g.cs
+C:\Users\stmou\OneDrive\Documents\GitHub\AtpCore\AtpCore\obj\Debug\net5.0\Razor\Pages\Components\PlayerExpanded\_PlayerBios.cshtml.g.cs
