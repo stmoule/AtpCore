@@ -10,6 +10,7 @@ namespace AtpCore
         public string Name { get; set; }
         public string Movie { get; set; }
         public string id { get; set; }
+        public string Time { get; set; }
 
     }
 
