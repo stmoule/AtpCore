@@ -23,8 +23,6 @@ namespace AtpCore
     {
         public List<PlayerJson> PlayerList { get; set; }
 
-        //public PlayerBiography PlayerInfo { get; set; }
-
         public async Task<IActionResult> OnGetAsync()
         {
 
@@ -60,79 +58,5 @@ namespace AtpCore
             options.Expires = DateTime.Now.AddDays(365);
             Response.Cookies.Append("favorite-players-post", "post-test", options);
         }
-
-        //public void FavoritePlayersCookie(string favoritePlayers)
-        //{
-
-        //    if (checkForExistingCookies("favorite-players"))
-        //    {
-        //        cookieFavoritePlayers.Expires = DateTime.Now.AddDays(-1);
-        //        Response.Cookies.Set(cookieFavoritePlayers);
-        //    }
-
-        //    Append("favorite-players", favoritePlayers);
-
-        //    cookieFavoritePlayers.Value = "favorite-players";
-
-        //    cookieFavoritePlayers.Expires = DateTime.Now.AddDays(365);
-        //    Response.Cookies.Add(cookieFavoritePlayers);
-        //}
-
-        //private List<string> FavoritePlayers = new List<string>();
-
-        //[JSInvokable]
-        //public void WriteCookie(string player)
-        //{
-        //    //string player = e.ToString();
-        //    //if (FavoritePlayers is null)
-
-        //    if (!FavoritePlayers.Contains(player))
-        //    {
-        //        FavoritePlayers.Add(player);
-        //    }
-        //    else
-        //    {
-        //        FavoritePlayers.Remove(player);
-        //    }
-
-        //    CookieOptions options = new CookieOptions();
-        //    options.Expires = DateTime.Now.AddDays(365);
-        //    Response.Cookies.Append("favorite-players", JsonConvert.SerializeObject(FavoritePlayers), options);
-
-        //}
-
-        //protected void CallCSMethod()
-        //{
-        //    JSRuntime.Current.InvokeAsync<bool>("createCookie");
-        //}
-
-        public object WriteCookie()
-        {
-            //string player = e.ToString();
-            //if (FavoritePlayers is null)
-
-            //if (!FavoritePlayers.Contains(player))
-            //{
-            //    FavoritePlayers.Add(player);
-            //}
-            //else
-            //{
-            //    FavoritePlayers.Remove(player);
-            //}
-
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(365);
-            Response.Cookies.Append("favorite-players", "please-work", options);
-
-            PlayerJson tester = new PlayerJson
-            {
-                FirstName = "Craig",
-                LastName = "Playstead"
-            };
-
-            return tester;
-        }
     }
-
-    
 }
