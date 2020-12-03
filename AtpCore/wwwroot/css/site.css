@@ -96,6 +96,25 @@ body {
     cursor: pointer;
 }
 
+table.table tr td input.show-on-hover {
+    /*display: none;*/
+    visibility: hidden;
+}
+
+table.table tr:hover td input.show-on-hover {
+    /*display: inline-block;*/
+    visibility: visible;
+}
+
+.show-on-hover:hover {
+    visibility: visible;
+}
+
+.btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545 !important;
+}
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
     padding: 8px 0 !important;
     line-height: 1.42857143;

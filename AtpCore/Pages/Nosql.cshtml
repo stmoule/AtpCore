@@ -2,3 +2,59 @@
 @model AtpCore.Pages.NosqlModel
 @{
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="container-fluid">
+    <div class="row" id="content">
+        <h1>What's your favorite color?</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <form method="post">
+                <div class="form-group">
+                    <label for="txtboxName">What is your name?</label>
+                    <input type="text" required id="txtboxName" class="form-control" placeholder="Buddy the Elf" name="txtboxName">
+                </div>
+                <div class="form-group">
+                    <label for="colorFavoriteColor">What's your favorite color?</label><br />
+                    <input type="color" id="colorFavoriteColor" class="" name="colorFavoriteColor">
+                </div>
+                <input class="btn btn-secondary" type="submit" value="Submit">
+            </form>
+        </div>
+        <div class="col-sm">
+            <label>Results</label>
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th class="text-center">
+                       Name
+                    </th>
+                    <th class="text-center">
+                        Color
+                    </th>
+                    <th class="text-center">
+                        Delete
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.FavoriteColor)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td style="background-color: @item.Color;">
+                        </td>
+                        <td class="text-center">
+                            <form method="post">
+                                <input class="btn btn-outline-danger show-on-hover" asp-page-handler="Delete" type="submit" value="Delete">
+                                <input type="hidden" name="id" value="@item.id" />
+                                <input type="hidden" name="Name" value="@item.Name" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

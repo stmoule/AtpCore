@@ -4,13 +4,6 @@
     ViewData["Title"] = "Top Ten";
 }
 
-@using System;
-@using Newtonsoft.Json;
-@using Microsoft.AspNetCore.Http;
-@using Microsoft.AspNetCore.Mvc;
-@using System.Collections.Generic;
-@using System.Net.Http.Json;
-
 @section Scripts {
 
     <script type="text/javascript">
@@ -18,7 +11,7 @@
         let checkboxValues = JSON.parse(getCookieValue('favorite-players')) || {};
 
         //Makes a favorites cookie
-        function TestMethod(sender, args) {
+        function favoritePlayersCookieCreate(sender, args) {
             const $checkboxes = $('input.favorite-player[type="checkbox"]');
             const expireDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
 
@@ -65,62 +58,6 @@
 
     </script>
 }
-
-
-@functions {
-
-    private List<string> FavoritePlayers = new List<string>();
-
-    //public void WriteCookie(UIMouseEventArgs e)
-    //{
-    //    //string player = e.ToString();
-    //    //if (FavoritePlayers is null)
-
-    //    //if (!FavoritePlayers.Contains(player))
-    //    //{
-    //    //    FavoritePlayers.Add(player);
-    //    //}
-    //    //else
-    //    //{
-    //    //    FavoritePlayers.Remove(player);
-    //    //}
-
-    //    CookieOptions options = new CookieOptions();
-    //    options.Expires = DateTime.Now.AddDays(365);
-    //    Response.Cookies.Append("favorite-players", JsonConvert.SerializeObject(FavoritePlayers), options);
-
-    //}
-
-    //public List<PlayerBiography> PlayerBiography { get; set; }
-    //public string PlayerId { get; set; }
-
-    //private async Task<IActionResult> PlayerContent(string PlayerId)
-    //{
-    //    var httpClient = new HttpClient();
-    //    httpClient.BaseAddress = new Uri("https://app.atptour.com/");
-
-    //    // Get data from JSON HttpContent with ReadFromJsonAsync
-    //    var request = new HttpRequestMessage(HttpMethod.Get, "api/gateway/players.PlayerProfileBio?playerid=D643");
-    //    using var response = await httpClient.SendAsync(request);
-
-    //    List<PlayerBiography> playerContent = new List<PlayerBiography>();
-
-    //    if (response.IsSuccessStatusCode)
-    //    {
-    //        var profiles = response.Content.ReadFromJsonAsync<PlayerBiography>();
-
-    //        //foreach (PlayerBiography player in (profiles.).Where(p => p.PlayerId == PlayerId))
-    //        //{
-    //        //    playerContent.Add(player);
-    //        //}
-    //    }
-
-    //    PlayerBiography = playerContent;
-
-    //    return Page();
-    //}
-}
-
 
 
 <div class="row" id="content">
@@ -186,9 +123,7 @@
                     @Html.DisplayFor(modelItem => item.CountryName)<br />
                 </td>
                 <td>
-                    @*<input type="checkbox" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
-                    @*<input type="checkbox" onclick="@Model.WriteCookie(this.)" value="@item.FirstName@item.LastName" name="favorite" /><br />*@
-                    <input type="checkbox" class="favorite-player" onclick="TestMethod()" value="@item.FirstName@item.LastName" name="favorite" />
+                    <input type="checkbox" class="favorite-player" onclick="favoritePlayersCookieCreate()" value="@item.FirstName@item.LastName" name="favorite" />
                 </td>
             </tr>
             <tr class="@item.FirstName@item.LastName">

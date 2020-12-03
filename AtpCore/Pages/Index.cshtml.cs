@@ -51,12 +51,5 @@ namespace AtpCore
 
             return Page();
         }
-
-        public void OnPost()
-        {
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(365);
-            Response.Cookies.Append("favorite-players-post", "post-test", options);
-        }
     }
 }
