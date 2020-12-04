@@ -32,7 +32,6 @@ Once again, thank you for giving me the opportunity to display a very small part
 
 Thanks,<br/>
 Stephen Moule<br />
-stmoule@gmail.com<br />
-321-720-1826
+
 
 
