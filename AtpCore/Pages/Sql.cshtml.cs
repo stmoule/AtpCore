@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 
 namespace AtpCore.Pages
 {
@@ -14,13 +15,28 @@ namespace AtpCore.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            List<NoSqlClass> movieList = new List<NoSqlClass>();
+            List<SqlClass> movieList = new List<SqlClass>();
 
-            var docs = client.CreateDocumentQuery<NoSqlClass>(collection.SelfLink, queryOptions).AsEnumerable();
-
-            foreach (var item in docs)
+            var connectionString = "Server=atpassessmentserver.database.windows.net,1433;Database=AtpTour;";
+            using (var conn = new SqlConnection(connectionString))
             {
-                colorsList.Add(item);
+                conn.AccessToken = await (new Microsoft.Azure.Services.AppAuthentication.AzureServiceTokenProvider()).GetAccessTokenAsync("https://database.windows.net/");
+                await conn.OpenAsync();
+                var sql = "SELECT  * FROM [dbo].[FavoriteMovie]";
+                using (SqlCommand command = new SqlCommand(sql, conn))
+                {
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            SqlClass favoriteMovie = new SqlClass();
+                            favoriteMovie.Name = Request.Form["txtboxName"];
+                            favoriteMovie.FavoriteMovie = "Tester";
+                            favoriteMovie.DateCreated = DateTime.Now.ToString();
+                            movieList.Add(favoriteMovie);
+                        }
+                    }
+                }
             }
 
             FavoriteMovie = movieList;

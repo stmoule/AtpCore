@@ -8,9 +8,9 @@ namespace AtpCore
     public class SqlClass
     {
         public string Name { get; set; }
-        public string Movie { get; set; }
-        public string id { get; set; }
-        public string Time { get; set; }
+        public string FavoriteMovie { get; set; }
+        public string RowId { get; set; }
+        public string DateCreated { get; set; }
 
     }
 

@@ -9,5 +9,16 @@
       "restoreTime": "2020-12-03T20:49:41.6804698Z"
     }
   },
-  "parameters": {}
+  "parameters": {
+    "mssql1.subscriptionId": {
+      "Name": "mssql1.subscriptionId",
+      "Type": "subscription",
+      "Value": "009ef081-02eb-44ba-896b-047fa74118d9"
+    },
+    "mssql1.resourceGroupName": {
+      "Name": "mssql1.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "ATP"
+    }
+  }
 }
