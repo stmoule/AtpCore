@@ -5,15 +5,6 @@ using System.Threading.Tasks;
 
 namespace AtpCore
 {
-    public class SqlClass
-    {
-        public string Name { get; set; }
-        public string FavoriteMovie { get; set; }
-        public string RowId { get; set; }
-        public string DateCreated { get; set; }
-
-    }
-
     public class NoSqlClass
     {
         public string Name { get; set; }

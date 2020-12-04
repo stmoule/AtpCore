@@ -6,7 +6,7 @@
     },
     "mssql1": {
       "restored": true,
-      "restoreTime": "2020-12-03T20:49:41.6804698Z"
+      "restoreTime": "2020-12-04T15:13:09.7542926Z"
     }
   },
   "parameters": {
@@ -19,6 +19,11 @@
       "Name": "mssql1.resourceGroupName",
       "Type": "resourceGroup",
       "Value": "ATP"
+    },
+    "subscriptionId": {
+      "Name": "subscriptionId",
+      "Type": "subscription",
+      "Value": "009ef081-02eb-44ba-896b-047fa74118d9"
     }
   }
 }
